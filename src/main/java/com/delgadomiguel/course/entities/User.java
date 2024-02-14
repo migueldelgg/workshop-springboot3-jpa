@@ -1,11 +1,18 @@
 package com.delgadomiguel.course.entities;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name = "tb_user") //User é uma palavra reservada do banco de dados H2
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
-    private Long id;
+
+    @Id // Significa que esse atributo é a chave primária do banco de dados
+    @GeneratedValue (strategy = GenerationType.IDENTITY) //.Isso gera pode mudar a dependeer do banco de dados.
+    private Long id; //  O valor gerado não é aleatório, mas sim sequencial.
     private String name;
     private String email;
     private String phone;
