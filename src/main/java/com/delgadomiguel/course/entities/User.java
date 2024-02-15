@@ -1,5 +1,6 @@
 package com.delgadomiguel.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -13,17 +14,19 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id // Significa que esse atributo é a chave primária do banco de dados
-    @GeneratedValue (strategy = GenerationType.IDENTITY) //.Isso gera pode mudar a dependeer do banco de dados.
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //.Isso gera pode mudar a dependeer do banco de dados.
     private Long id; //  O valor gerado não é aleatório, mas sim sequencial.
     private String name;
     private String email;
     private String phone;
     private String password;
 
-    @OneToMany(mappedBy = "client") // Um cliente pode ter muitos pedidos / Mapeado pelo atributo "client" da classe Order
+    @JsonIgnore
+    @OneToMany(mappedBy = "client")
+    // Um cliente pode ter muitos pedidos / Mapeado pelo atributo "client" da classe Order
     private List<Order> orders = new ArrayList<>(); // em caso de coleções, não criamos o método Set, apenas o Get
 
-    public User(){
+    public User() {
     }
 
     public User(Long id, String name, String email, String phone, String password) {
@@ -74,7 +77,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public List<Order> getOrders(){
+    public List<Order> getOrders() {
         return orders;
     }
 
