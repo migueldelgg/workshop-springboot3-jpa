@@ -9,13 +9,14 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_user") //User é uma palavra reservada do banco de dados H2
+@Table(name = "tb_user") // "User" é uma palavra reservada no banco de dados H2
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id // Significa que esse atributo é a chave primária do banco de dados
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //.Isso gera pode mudar a dependeer do banco de dados.
-    private Long id; //  O valor gerado não é aleatório, mas sim sequencial.
+    @Id // Identifica este atributo como a chave primária do banco de dados
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // A estratégia de geração de valor para a chave primária
+    private Long id; // Valor gerado sequencialmente
+
     private String name;
     private String email;
     private String phone;
@@ -23,12 +24,13 @@ public class User implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "client")
-    // Um cliente pode ter muitos pedidos / Mapeado pelo atributo "client" da classe Order
-    private List<Order> orders = new ArrayList<>(); // em caso de coleções, não criamos o método Set, apenas o Get
+    // Um cliente pode ter muitos pedidos, mapeado pelo atributo "client" na classe Order
+    private List<Order> orders = new ArrayList<>(); // Não criamos método setter para coleções
 
     public User() {
     }
 
+    // Construtor com todos os atributos
     public User(Long id, String name, String email, String phone, String password) {
         this.id = id;
         this.name = name;
@@ -37,50 +39,66 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    // Getters e Setters
+
+    // Retorna o ID do usuário
     public Long getId() {
         return id;
     }
 
+    // Define o ID do usuário
     public void setId(Long id) {
         this.id = id;
     }
 
+    // Retorna o nome do usuário
     public String getName() {
         return name;
     }
 
+    // Define o nome do usuário
     public void setName(String name) {
         this.name = name;
     }
 
+    // Retorna o e-mail do usuário
     public String getEmail() {
         return email;
     }
 
+    // Define o e-mail do usuário
     public void setEmail(String email) {
         this.email = email;
     }
 
+    // Retorna o telefone do usuário
     public String getPhone() {
         return phone;
     }
 
+    // Define o telefone do usuário
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    // Retorna a senha do usuário
     public String getPassword() {
         return password;
     }
 
+    // Define a senha do usuário
     public void setPassword(String password) {
         this.password = password;
     }
 
+    // Retorna a lista de pedidos associados ao usuário
     public List<Order> getOrders() {
         return orders;
     }
 
+    // Sobrescrita dos métodos equals e hashCode
+
+    // Compara se dois usuários são iguais com base no ID
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -89,6 +107,7 @@ public class User implements Serializable {
         return Objects.equals(id, user.id);
     }
 
+    // Gera um código de hash para o usuário com base no ID
     @Override
     public int hashCode() {
         return Objects.hash(id);
