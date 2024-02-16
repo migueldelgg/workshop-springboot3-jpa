@@ -3,7 +3,9 @@ package com.delgadomiguel.course.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_category")
@@ -14,6 +16,13 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // A estratégia de geração de valor para a chave primária
     private Long id;
     private String name;
+
+    @Transient
+    private Set<Product> products = new HashSet<>(); // Garante que não é nula e sim vazia.
+
+    public Set<Product> getProducts() {
+        return products;
+    }
 
     public Category() {
 
