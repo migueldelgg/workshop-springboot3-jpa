@@ -22,12 +22,14 @@ public enum OrderStatus {
     //Percorre todos os valores possíveis do tipo enum e verifica se o código fornecido corresponde a algum deles.
     //Se um valor correspondente for encontrado, retorna o OrderStatus equivalente; caso contrário, retorna null.
     public static OrderStatus valueOf(int code) {
+
         for (OrderStatus value : OrderStatus.values()) {
             if (value.getCode() == code) {
                 return value;
             }
         }
         throw new IllegalArgumentException("Invalid OrderStatus code.");
+
     }
 
 }
