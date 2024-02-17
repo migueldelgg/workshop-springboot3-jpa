@@ -6,7 +6,9 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
@@ -30,6 +32,9 @@ public class Order implements Serializable {
     // Relação muitos-para-um com a entidade User: muitos pedidos para um cliente
     @JoinColumn(name = "client_id") // Nome da chave estrangeira no banco de dados
     private User client;
+
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Order() {
     }
@@ -86,8 +91,11 @@ public class Order implements Serializable {
         }
     }
 
-    // Sobrescrita dos métodos equals e hashCode
+    public Set<OrderItem> getItems(){
+        return items;
+    }
 
+    // Sobrescrita dos métodos equals e hashCode
     // Compara se dois pedidos são iguais com base no ID
     @Override
     public boolean equals(Object o) {

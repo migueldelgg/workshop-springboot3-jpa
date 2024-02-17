@@ -15,28 +15,33 @@ public class OrderItemPK implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Order order;
+    private Order order; // Representa a ordem associada ao item de pedido
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private Product product;
+    private Product product; // Representa o produto associado ao item de pedido
 
+    // Método para obter a ordem associada ao item de pedido
     public Order getOrder() {
         return order;
     }
 
+    // Método para definir a ordem associada ao item de pedido
     public void setOrder(Order order) {
         this.order = order;
     }
 
+    // Método para obter o produto associado ao item de pedido
     public Product getProduct() {
         return product;
     }
 
+    // Método para definir o produto associado ao item de pedido
     public void setProduct(Product product) {
         this.product = product;
     }
 
+    // Sobrescrita do método equals para comparar dois objetos OrderItemPK
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,6 +50,7 @@ public class OrderItemPK implements Serializable {
         return Objects.equals(order, that.order) && Objects.equals(product, that.product);
     }
 
+    // Sobrescrita do método hashCode para gerar o código hash do objeto
     @Override
     public int hashCode() {
         return Objects.hash(order, product);
